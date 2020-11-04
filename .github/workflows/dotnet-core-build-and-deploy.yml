@@ -3,7 +3,7 @@ name: ASP.NET Core MVC application Build and Deploy
 on:
   push:
     paths:
-    - './src/web/**'
+    - 'src/web/**'
 
 jobs:
   build:
