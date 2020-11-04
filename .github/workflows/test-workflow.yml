@@ -25,5 +25,5 @@ jobs:
 
       - name: Docker Build and push
         run: |
-          docker build ./src/web -t blacktelescope.azurecr.io/pompom:${{ github.sha }}
-          docker push blacktelescope.azurecr.io/pompom:${{ github.sha }}
+          docker build ./src/web -t blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
+          docker push blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}

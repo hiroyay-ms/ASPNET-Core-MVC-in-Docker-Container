@@ -50,5 +50,15 @@ jobs:
 
       - name: Docker Build and push
         run: |
-          docker build ./src/web -t blacktelescope.azurecr.io/pompom:${{ github.sha }}
-          docker push blacktelescope.azurecr.io/pompom:${{ github.sha }}
+          docker build ./src/web -t blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
+          docker push blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
+
+      - name: Deploy to App Service for Containers
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPPSNAME }}
+          images: blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
+
+      - name: Azure logout
+        run: |
+          az logout
