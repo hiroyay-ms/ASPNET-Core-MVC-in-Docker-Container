@@ -18,7 +18,17 @@ spec:
       containers:
         - name: webapp
           image: docker pull blacktelescope.azurecr.io/pompom:246983b3dae71803289c826e75720300cf601d56
+          resources:
+            requests:
+                cpu: "250m"
+                memory: "512Mi"
+            limits:
+                cpu: "500m"
+                memory: "1Gi"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
               protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
