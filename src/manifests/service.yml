@@ -6,6 +6,7 @@ metadata:
     app: aspnet-core-mvc
     service: webapp
 spec:
+  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
