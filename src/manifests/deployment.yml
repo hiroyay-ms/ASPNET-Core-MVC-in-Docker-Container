@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: docker pull blacktelescope.azurecr.io/pompom:246983b3dae71803289c826e75720300cf601d56
+          image: blacktelescope.azurecr.io/pompom:246983b3dae71803289c826e75720300cf601d56
           resources:
             requests:
                 cpu: "250m"
