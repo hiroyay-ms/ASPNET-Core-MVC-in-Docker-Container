@@ -9,18 +9,40 @@ on:
       aksClusterName:
         description: AKS Cluster Name
         required: true
+      imageTag:
+        description: Container Image imageTag
+        required: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout source code
+        uses: actions/checkout@v2
         
       - name: Set the target AKS cluster
         uses: Azure/aks-set-context@v1
         with:
-          cred: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           cluster-name: ${{ github.event.inputs.aksClusterName }}
           resource-group: ${{ github.event.inputs.resourceGroupName }}
 
+      - name: Create k8s secrets
+        uses: Azure/k8s-create-secret@v1
+        with:
+          container-registry-url: blacktelescope.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          secret-name: deploy-k8s-secret
+
+      - name: Deploy k8s Clusetr
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            src/manifests/deployment.yml
+            src/manifests/service.yml
+          images: |
+            blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.event.inputs.imageTag }}
+          imagepullsecrets: |
+            deploy-k8s-secret

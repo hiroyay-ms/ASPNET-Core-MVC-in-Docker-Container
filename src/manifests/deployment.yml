@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: webapp
+  labels:
+    app: aspnet-core-mvc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: webapp
+  template:
+    metadata:
+      labels:
+        app: aspnet-core-mvc
+        service: webapp
+    spec:
+      containers:
+        - name: webapp
+          image: docker pull blacktelescope.azurecr.io/pompom:246983b3dae71803289c826e75720300cf601d56
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
