@@ -43,6 +43,7 @@ jobs:
           manifests: |
             src/manifests/deployment.yml
             src/manifests/service.yml
+            src/manifests/autoscale.yml
           images: |
             blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.event.inputs.imageTag }}
           imagepullsecrets: |
