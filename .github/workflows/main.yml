@@ -1,0 +1,25 @@
+name: Deploy to Azure Kubernetes Services
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroupName:
+        description: Resource Group Name
+        required: true
+      aksClusterName:
+        description: AKS Cluster Name
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Set the target AKS cluster
+        uses: Azure/aks-set-context@v1
+        with:
+          cred: ${{ secrets.AZURE_CREDENTIALS }}
+          cluster-name: ${{ github.event.inputs.aksClusterName }}
+          resource-group: ${{ github.event.inputs.resourceGroupName }}
