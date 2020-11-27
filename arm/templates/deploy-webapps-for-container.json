@@ -53,14 +53,14 @@
         "imageTag": {
             "type": "string",
             "metadata": {
-                "description": "appName: imageTag の形式で指定"
+                "description": "repository: imageTag の形式で指定"
             }
         }
     },
     "functions": [],
     "variables": {
         "planSkuTier": "[if(contains(parameters('planSkuName'), 'S'), 'Standard', if(contains(parameters('planSkuName'), 'V2'), 'PremiumV2', 'PremiumV3'))]",
-        "registryResourceId": "[resourceId(parameters('subscriptionId'), parameters('acrResourceGroupName'), 'Microsoft.ContainerRegistry/registries', parameters('azureContainerRegistry'))]",
+        "registryResourceId": "[resourceId(parameters('subscriptionId'), parameters('acrResourceGroupName'), 'Microsoft.ContainerRegistry/registries', parameters('azureContainerRegistry'))]"
     },
     "resources": [
         {
