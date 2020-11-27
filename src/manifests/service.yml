@@ -5,6 +5,8 @@ metadata:
   labels:
     app: aspnet-core-mvc
     service: webapp
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: ranchu
 spec:
   type: LoadBalancer
   ports:
