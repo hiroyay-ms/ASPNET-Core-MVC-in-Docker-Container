@@ -1,0 +1,98 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "aksClusterName": {
+            "type": "string",
+            "defaultValue": "aksCluster-1",
+            "metadata": {
+                "description": "Kubernetes クラスター名"
+            }
+        },
+        "kubernetesVersion": {
+            "type": "string",
+            "defaultValue": "1.17.11",
+            "allowedValues": [
+                "1.16.13",
+                "1.16.15",
+                "1.17.9",
+                "1.17.11",
+                "1.18.6",
+                "1.18.8"
+            ],
+            "metadata": {
+                "description": "Kubernetes バージョン"
+            }
+        },
+        "nodeCount": {
+            "type": "int",
+            "defaultValue": 3,
+            "metadata": {
+                "description": "ノード数"
+            }
+        },
+        "nodeSize": {
+            "type": "string",
+            "defaultValue": "Standard_D2s_v3",
+            "allowedValues": [
+                "Standard_D2s_v3",
+                "Standard_D4s_v3",
+                "Standard_D8s_v3"
+            ],
+            "metadata": {
+                "description": "ノード サイズ"
+            }
+        },
+        "servicePrincipalClientId": {
+            "type": "string",
+            "metadata": {
+                "description": "サービス プリンシパル ID"
+            }
+        },
+        "servicePrincipalClientSecret": {
+            "type": "string",
+            "metadata": {
+                "description": "サービス プリンシパルのシークレット"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('aksClusterName')]",
+            "type": "Microsoft.ContainerService/managedClusters",
+            "apiVersion": "2020-02-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "kubernetesVersion": "[parameters('kubernetesVersion')]",
+                "enableRBAC": true,
+                "dnsPrefix": "dnsprefix",
+                "agentPoolProfiles": [
+                    {
+                        "name": "agentpool",
+                        "count": "[parameters('nodeCount')]",
+                        "vmSize": "[parameters('nodeSize')]",
+                        "osType": "Linux",
+                        "storageProfile": "ManagedDisks",
+                        "type": "VirtualMachineScaleSets",
+                        "maxPods": 100,
+                        "availabilityZones": [
+                            "1",
+                            "2",
+                            "3"
+                        ]
+                    }
+                ],
+                "servicePrincipalProfile": {
+                    "clientId": "[parameters('servicePrincipalClientId')]",
+                    "secret": "[parameters('servicePrincipalClientSecret')]"
+                },
+                "networkProfile": {
+                    "networkPlugin": "kubenet",
+                    "loadBalancerSku": "standard"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
