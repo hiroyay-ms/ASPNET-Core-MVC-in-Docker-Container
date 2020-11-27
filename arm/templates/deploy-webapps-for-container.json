@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "hostingPlanName": {
+            "type": "string",
+            "metadata": {
+                "description": "App Service Plan 名"
+            }
+        },
+        "planSkuName": {
+            "type": "string",
+            "defaultValue": "P1V2",
+            "allowedValues": [
+                "S1",
+                "S2",
+                "S3",
+                "P1V2",
+                "P2V2",
+                "P3V2",
+                "P1V3",
+                "P2V3",
+                "P3V3"
+            ],
+            "metadata": {
+                "description": "価格レベル（S1-3, P1-3V2, P1-3V3 の中から選択）"
+            }
+        },
+        "webSiteName": {
+            "type": "string",
+            "metadata": {
+                "description": "Web アプリ名"
+            }
+        },
+        "subscriptionId": {
+            "type": "string",
+            "metadata": {
+                "description": "サブスクリプション ID"
+            }
+        },
+        "azureContainerRegistry": {
+            "type": "string",
+            "metadata": {
+                "description": "レジストリ名"
+            }
+        },
+        "acrResourceGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "ACR の所属するリソース グループ名"
+            }
+        },
+        "imageTag": {
+            "type": "string",
+            "metadata": {
+                "description": "repository: imageTag の形式で指定"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "planSkuTier": "[if(contains(parameters('planSkuName'), 'S'), 'Standard', if(contains(parameters('planSkuName'), 'V2'), 'PremiumV2', 'PremiumV3'))]",
+        "registryResourceId": "[resourceId(parameters('subscriptionId'), parameters('acrResourceGroupName'), 'Microsoft.ContainerRegistry/registries', parameters('azureContainerRegistry'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('hostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "[parameters('planSkuName')]",
+                "tier": "[variables('planSkuTier')]",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {}
+        },
+        {
+            "name": "[parameters('webSiteName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "location": "[resourceGroup().location]",
+            "kind": "app,linux,container",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+            ],
+            "properties": {
+                "name": "[parameters('webSiteName')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_URL",
+                            "value": "[reference(variables('registryResourceId'), '2019-05-01').loginServer]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                            "value": "[listCredentials(variables('registryResourceId'), '2019-05-01').username]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                            "value": "[listCredentials(variables('registryResourceId'), '2019-05-01').passwords]"
+                        },
+                        {
+                            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                            "value": "false"
+                        }
+                    ],
+                    "linuxFxVersion": "[concat('DOCKER|', reference(variables('registryResourceId'), '2019-05-01').loginServer, parameters('imageTag'))]"
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+            }
+        }
+    ],
+    "outputs": {}
+}
