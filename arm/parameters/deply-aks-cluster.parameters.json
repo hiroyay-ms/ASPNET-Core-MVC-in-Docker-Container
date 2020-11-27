@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "aksClusterName": {
+            "value": "aksCluster-1"
+        },
+        "kubernetesVersion": {
+            "value": "1.17.11"
+        },
+        "nodeCount": {
+            "value": 3
+        },
+        "nodeSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "servicePrincipalClientId": {
+            "value": "GEN-AZURE-AD-AKS-APPID"
+        },
+        "servicePrincipalClientSecret": {
+            "value": "GEN-AZURE-AD-AKS-APPID-SECRET"
+        }
+    }
+}
