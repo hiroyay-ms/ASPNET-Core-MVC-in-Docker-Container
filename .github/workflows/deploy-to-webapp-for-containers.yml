@@ -1,0 +1,40 @@
+name: Deploy to Azure Web App for Containers
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroupName:
+        description: Resource Group Name
+        required: true
+      webappName:
+        description: Web App for Containers
+        required: true
+      repositoryName:
+        description: Repository
+        required: true
+      imageTag:
+        description: Tag
+        required: true
+
+joss:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to App Service for Containers
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ github.event.inputs.webappName }}
+          images: blacktelescope.azurecr.io/${{ github.event.inputs.repositoryName }}:${{ github.event.inputs.imageTag }}
+
+      - name: Azure logout
+        run: |
+          az logout
