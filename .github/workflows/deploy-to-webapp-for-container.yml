@@ -1,7 +1,20 @@
 name: Deploy to Azure Web App for Containers
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      resourceGroupName:
+        description: Resource Group Name
+        required: true
+      webappName:
+        description: Web App for Containers
+        required: true
+      repositoryName:
+        description: Repository
+        required: true
+      imageTag:
+        description: Tag
+        required: true
 
 jobs:
   deploy:
