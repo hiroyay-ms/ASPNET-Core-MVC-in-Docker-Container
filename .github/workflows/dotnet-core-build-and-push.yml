@@ -36,11 +36,6 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
-      - name: Login via Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Login via Azure Container Registry
         uses: azure/docker-login@v1
         with:
@@ -52,7 +47,3 @@ jobs:
         run: |
           docker build ./src/web -t blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
           docker push blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.sha }}
-
-      - name: Azure logout
-        run: |
-          az logout
