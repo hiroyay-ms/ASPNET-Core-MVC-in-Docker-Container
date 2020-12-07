@@ -14,11 +14,17 @@
         "nodeSize": {
             "value": "Standard_D2s_v3"
         },
-        "servicePrincipalClientId": {
-            "value": "GEN-AZURE-AD-AKS-APPID"
+        "vaultName": {
+            "value": "<KeyVault>"
         },
-        "servicePrincipalClientSecret": {
-            "value": "GEN-AZURE-AD-AKS-APPID-SECRET"
+        "vaultResourceGroupName": {
+            "value": "<ResourceGroup>"
+        },
+        "servicePrincipalClientIdSecretName": {
+            "value": "<SecretName>"
+        },
+        "servicePrincipalClientSecretSecretName": {
+            "value": "<SecretName>"
         }
     }
 }
