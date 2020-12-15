@@ -32,7 +32,7 @@ jobs:
       - name: Create k8s secrets
         uses: Azure/k8s-create-secret@v1
         with:
-          container-registry-url: blacktelescope.azurecr.io
+          container-registry-url: ${{ secrets.REGISTRY_LOGINSERVER }}
           container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
           container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           secret-name: deploy-k8s-secret
@@ -45,6 +45,6 @@ jobs:
             src/manifests/service.yml
             src/manifests/autoscale.yml
           images: |
-            blacktelescope.azurecr.io/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.event.inputs.imageTag }}
+            ${{ secrets.REGISTRY_LOGINSERVER }}/${{ secrets.AZURE_WEBAPPSNAME }}:${{ github.event.inputs.imageTag }}
           imagepullsecrets: |
             deploy-k8s-secret
