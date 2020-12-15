@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "z2ayxhNqsPpXvfJCaLEVCenHSKnBZajUMC6eREkeJrRJVs+sv3YoZ5VTCt3RCYjAspqPA20G5J8beruUbL9Oww==",
+  "dgSpecHash": "LZHIhiQFW4IZyKmGAcrFtWTHMTkUv/d1H+c7wowBqUuebXYQyDIPSGzraiaAzkgltlJheWIHsmkLhzB1oTxqmA==",
   "success": true,
   "projectFilePath": "C:\\Users\\hiroyay\\source\\repos\\hiroyay-ms\\ASPNET-Core-MVC-in-Docker-Container\\src\\web\\web.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\hiroyay\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\hiroyay\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
+  ],
   "logs": []
 }

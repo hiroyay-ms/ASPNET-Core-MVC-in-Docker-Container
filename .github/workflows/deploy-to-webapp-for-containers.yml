@@ -35,7 +35,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ github.event.inputs.webappName }}
-          images: blacktelescope.azurecr.io/${{ github.event.inputs.repositoryName }}:${{ github.event.inputs.imageTag }}
+          images: ${{ secrets.REGISTRY_LOGINSERVER }}/${{ github.event.inputs.repositoryName }}:${{ github.event.inputs.imageTag }}
 
       - name: Azure logout
         run: |

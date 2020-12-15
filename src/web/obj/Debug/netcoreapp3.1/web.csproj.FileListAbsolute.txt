@@ -1,6 +1,5 @@
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\web.exe
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\web.deps.json
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\bin\Debug\netcoreapp3.1\web.runtimeconfig.json
@@ -34,3 +33,4 @@ C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\obj\Debug\netcoreapp3.1\web.pdb
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\obj\Debug\netcoreapp3.1\web.genruntimeconfig.cache
 C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\obj\Debug\netcoreapp3.1\web.csproj.CopyComplete
+C:\Users\hiroyay\source\repos\hiroyay-ms\ASPNET-Core-MVC-in-Docker-Container\src\web\obj\Debug\netcoreapp3.1\scopedcss\bundle\web.styles.css
