@@ -1,7 +1,11 @@
-name: Deploy to Azure Web Apps for Linux
+name: Deploy to Azure Web App for Linux
 
 on:
   workflow_dispatch:
+    inputs:
+      webAppName: 
+        description: Web App Name
+        required: true
 
 jobs:
   build:
